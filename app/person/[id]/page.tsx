@@ -42,11 +42,13 @@ async function getBillionDetail(id: string): Promise<PersonDetail> {
   return json;
 }
 
-export default function PersonDetail({
-  params: { id },
+export default async function PersonDetail({
+  params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
+  const id = (await params).id;
+
   return (
     <Suspense fallback={<h1>Loading detail info</h1>}>
       <DetailView id={id} />
